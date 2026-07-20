@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>代理性 AI 重塑企業競爭力｜知識分享網頁</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1b2d;
+      --panel: rgba(13, 27, 45, 0.82);
+      --panel-strong: rgba(16, 34, 56, 0.95);
+      --text: #e8eef7;
+      --muted: #9fb3c8;
+      --line: rgba(159, 179, 200, 0.18);
+      --accent: #6ee7d8;
+      --accent-2: #7ab8ff;
+      --warn: #ffd27a;
+      --good: #96f2b8;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(122, 184, 255, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(110, 231, 216, 0.12), transparent 24%),
+        linear-gradient(180deg, #05101d 0%, #091424 44%, #08111c 100%);
+      line-height: 1.75;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 16, 29, 0.76);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px 14px;
+      font-size: 14px;
+    }
+
+    .nav a { color: var(--muted); }
+    .nav a:hover { color: var(--text); text-decoration: none; }
+
+    .hero {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 56px 20px 24px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-main, .hero-side, .panel, .mini-card, .timeline-card, .qa-card, .footer-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .hero-main {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(110, 231, 216, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.75;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-summary {
+      margin: 20px 0 24px;
+      font-size: 18px;
+      color: #d6e2f0;
+      max-width: 18.5em;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(122, 184, 255, 0.12);
+      color: #d9e8ff;
+      border: 1px solid rgba(122, 184, 255, 0.22);
+      font-size: 13px;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .meta .item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .meta .label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .meta .value {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .hero-side h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    .hero-side p {
+      margin: 0;
+      color: #d6e2f0;
+    }
+
+    .signal-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .signal {
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .signal strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 8px 20px 72px;
+    }
+
+    section {
+      margin-top: 24px;
+      scroll-margin-top: 90px;
+    }
+
+    .panel {
+      padding: 30px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.2;
+    }
+
+    .section-head .sub {
+      color: var(--muted);
+      max-width: 580px;
+      font-size: 15px;
+    }
+
+    .summary-grid,
+    .card-grid,
+    .scenario-grid,
+    .qa-grid,
+    .closing-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .mini-card, .timeline-card, .qa-card, .footer-card {
+      padding: 20px;
+      background: var(--panel-strong);
+    }
+
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .mini-card h3, .timeline-card h3, .qa-card h3, .footer-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .mini-card p, .timeline-card p, .qa-card p, .footer-card p,
+    li {
+      color: #d5e0eb;
+      margin: 0;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.2em;
+    }
+
+    .accent-line {
+      height: 4px;
+      width: 72px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      margin-bottom: 16px;
+    }
+
+    .svg-wrap {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(122,184,255,0.06), rgba(110,231,216,0.03));
+      border: 1px solid rgba(122, 184, 255, 0.16);
+      overflow: auto;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .compare-box {
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .compare-box.before { border-color: rgba(255, 210, 122, 0.22); }
+    .compare-box.after { border-color: rgba(150, 242, 184, 0.22); }
+
+    .label-pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .before .label-pill { background: rgba(255, 210, 122, 0.12); color: var(--warn); }
+    .after .label-pill { background: rgba(150, 242, 184, 0.12); color: var(--good); }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-card {
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .timeline-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 22px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 6px rgba(110, 231, 216, 0.1);
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(110, 231, 216, 0.08);
+      border: 1px solid rgba(110, 231, 216, 0.16);
+      color: #e3fbf7;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: rgba(9, 20, 36, 0.88);
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; }
+      .meta { grid-template-columns: 1fr; }
+      .span-4, .span-6, .span-8 { grid-column: span 12; }
+      .compare { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .hero-main, .hero-side, .panel { padding: 22px; }
+      .nav { justify-content: flex-start; }
+      h1 { font-size: 34px; }
+      .hero-summary { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Knowledge Share Page</div>
+      <nav class="nav">
+        <a href="#summary">3 分鐘摘要</a>
+        <a href="#framework">核心框架</a>
+        <a href="#transition">轉型路徑</a>
+        <a href="#applications">應用情境</a>
+        <a href="#actions">實踐清單</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">Agentic AI × Enterprise Transformation</div>
+      <h1>代理性 AI<br>重塑企業競爭力</h1>
+      <p class="hero-summary">企業的競爭焦點，正從「有沒有導入 AI 工具」轉向「能不能把知識、流程與決策邏輯，變成可治理、可複製、可持續優化的 AI 能力」。</p>
+      <div class="tag-row">
+        <span class="tag">數位員工</span>
+        <span class="tag">流程整合</span>
+        <span class="tag">資料治理</span>
+        <span class="tag">人機協作</span>
+        <span class="tag">組織能力重塑</span>
+      </div>
+      <div class="meta">
+        <div class="item">
+          <span class="label">來源</span>
+          <span class="value">經濟日報｜名家觀點</span>
+        </div>
+        <div class="item">
+          <span class="label">作者</span>
+          <span class="value">王鳳奎</span>
+        </div>
+        <div class="item">
+          <span class="label">整理主軸</span>
+          <span class="value">企業如何從工具導入走向 AI 治理</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-side">
+      <div>
+        <h2>一句話看重點</h2>
+        <p>Agentic AI 的本質，不是更會聊天的生成式 AI，而是能理解目標、拆任務、叫系統、跑流程、依結果修正行動的「可執行型 AI」。</p>
+      </div>
+      <div class="signal-list">
+        <div class="signal">
+          <strong>競爭力正在改寫</strong>
+          企業優勢不再只看設備、資本與規模，也看能否把隱性知識轉成機器可運作的能力。
+        </div>
+        <div class="signal">
+          <strong>障礙多半不在模型</strong>
+          真正卡住企業的，通常是權責、資料品質、系統孤島與管理觀念。
+        </div>
+        <div class="signal">
+          <strong>推進方式要務實</strong>
+          先從高價值、可衡量、風險可控的流程做起，再逐步擴大授權給 AI。
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <main>
+    <section id="summary">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>3 分鐘摘要</h2>
+          </div>
+          <div class="sub">這篇文章的重點，不是介紹新工具，而是提醒企業：AI 真正進場後，會改變流程、權限、責任與組織分工。</div>
+        </div>
+
+        <div class="summary-grid">
+          <article class="mini-card span-4">
+            <h3>1. AI 從回答問題走向執行任務</h3>
+            <p>Agentic AI 不只生文字，而是能根據目標拆解步驟、呼叫資料與系統、完成流程，像「數位員工」一樣持續運作。</p>
+          </article>
+          <article class="mini-card span-4">
+            <h3>2. 企業競爭不再只是硬體與資本</h3>
+            <p>未來差距，來自誰先把知識、流程、經驗與決策規則轉成可被 AI 理解與複製的組織資產。</p>
+          </article>
+          <article class="mini-card span-4">
+            <h3>3. 真正難的不是技術，而是治理</h3>
+            <p>若領導者沒有明確界定任務、授權、資料來源與責任邊界，再聰明的 AI 也只會變成沒有職務說明書的數位新人。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="framework">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>核心框架：企業競爭力的五個重構層</h2>
+          </div>
+          <div class="sub">把原文拆成可教學的骨架後，可以看成一條從工具導入，到能力重塑的升級路徑。</div>
+        </div>
+
+        <div class="svg-wrap" aria-label="Agentic AI framework diagram">
+          <svg viewBox="0 0 1080 420" width="100%" role="img">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0%" stop-color="#6ee7d8" />
+                <stop offset="100%" stop-color="#7ab8ff" />
+              </linearGradient>
+            </defs>
+            <rect x="20" y="60" rx="24" ry="24" width="180" height="96" fill="rgba(110,231,216,0.10)" stroke="rgba(110,231,216,0.40)"/>
+            <rect x="230" y="60" rx="24" ry="24" width="180" height="96" fill="rgba(122,184,255,0.10)" stroke="rgba(122,184,255,0.40)"/>
+            <rect x="440" y="60" rx="24" ry="24" width="180" height="96" fill="rgba(110,231,216,0.10)" stroke="rgba(110,231,216,0.40)"/>
+            <rect x="650" y="60" rx="24" ry="24" width="180" height="96" fill="rgba(122,184,255,0.10)" stroke="rgba(122,184,255,0.40)"/>
+            <rect x="860" y="60" rx="24" ry="24" width="180" height="96" fill="rgba(110,231,216,0.10)" stroke="rgba(110,231,216,0.40)"/>
+
+            <text x="110" y="98" text-anchor="middle" fill="#e8eef7" font-size="24" font-weight="700">任務定義</text>
+            <text x="110" y="128" text-anchor="middle" fill="#9fb3c8" font-size="16">AI 要完成什麼</text>
+
+            <text x="320" y="98" text-anchor="middle" fill="#e8eef7" font-size="24" font-weight="700">資料治理</text>
+            <text x="320" y="128" text-anchor="middle" fill="#9fb3c8" font-size="16">資料可信且可串接</text>
+
+            <text x="530" y="98" text-anchor="middle" fill="#e8eef7" font-size="24" font-weight="700">流程整合</text>
+            <text x="530" y="128" text-anchor="middle" fill="#9fb3c8" font-size="16">系統與動作打通</text>
+
+            <text x="740" y="98" text-anchor="middle" fill="#e8eef7" font-size="24" font-weight="700">人機協作</text>
+            <text x="740" y="128" text-anchor="middle" fill="#9fb3c8" font-size="16">誰建議、誰核准、誰監督</text>
+
+            <text x="950" y="98" text-anchor="middle" fill="#e8eef7" font-size="24" font-weight="700">組織能力</text>
+            <text x="950" y="128" text-anchor="middle" fill="#9fb3c8" font-size="16">可治理、可複製、可累積</text>
+
+            <path d="M200 108 H230" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M410 108 H440" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M620 108 H650" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M830 108 H860" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+
+            <rect x="120" y="240" rx="28" ry="28" width="840" height="120" fill="rgba(255,255,255,0.03)" stroke="rgba(159,179,200,0.18)"/>
+            <text x="540" y="282" text-anchor="middle" fill="#6ee7d8" font-size="22" font-weight="700">Agentic AI 的真正價值</text>
+            <text x="540" y="318" text-anchor="middle" fill="#e8eef7" font-size="28" font-weight="700">把分散在部門、系統與個人手上的任務</text>
+            <text x="540" y="350" text-anchor="middle" fill="#e8eef7" font-size="28" font-weight="700">整合成持續運作的智慧營運機制</text>
+          </svg>
+        </div>
+
+        <div class="card-grid" style="margin-top:18px;">
+          <article class="mini-card span-6">
+            <h3>從「會用 ChatGPT」升級到「讓 AI 接流程」</h3>
+            <p>文章明確提醒：企業不能把 AI 轉型簡化成員工多用幾個工具。真正要問的是，哪些工作可以交由 AI 完整承接、哪些資料支撐它、哪些決策必須保留人工責任。</p>
+          </article>
+          <article class="mini-card span-6">
+            <h3>AI 轉型的本質是經營系統重設</h3>
+            <p>這不是資訊部門單獨能解決的事，而是企業經營者要重新定義目標、分工、權限、績效與風險控管的管理工程。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="transition">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>思維轉變：企業該怎麼看待 Agentic AI</h2>
+          </div>
+          <div class="sub">原文最值得拿來對內溝通的一段，是它把「AI 導入」和「AI 能力化」切得很清楚。</div>
+        </div>
+
+        <div class="compare">
+          <div class="compare-box before">
+            <span class="label-pill">舊思維</span>
+            <h3>把 AI 當生產力工具</h3>
+            <ul>
+              <li>期待員工用 AI 寫快一點、找快一點、整理快一點</li>
+              <li>以功能清單、成本節省、單點自動化為主</li>
+              <li>AI 停在摘要、問答、內容生成</li>
+              <li>成效零碎，難以轉成組織資產</li>
+            </ul>
+          </div>
+          <div class="compare-box after">
+            <span class="label-pill">新思維</span>
+            <h3>把 AI 當可治理的數位員工</h3>
+            <ul>
+              <li>先定義任務，再指定資料、規則、授權與責任</li>
+              <li>讓 AI 能跨系統完成完整工作流</li>
+              <li>以流程品質、決策速度、知識留存與可複製性衡量成效</li>
+              <li>成果會沉澱為企業能力，而非個人技巧</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          *文章最關鍵的一句，可以轉譯成管理語言：* 不是「公司有沒有用 AI」，而是「公司有沒有把 AI 納進營運設計與治理架構」。
+        </div>
+      </div>
+    </section>
+
+    <section id="applications">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>應用情境：哪些流程最適合先做</h2>
+          </div>
+          <div class="sub">文章提到業務、採購、生產等角色，這裡把它進一步整理成企業比較容易啟動的落地場景。</div>
+        </div>
+
+        <div class="scenario-grid">
+          <article class="mini-card span-4">
+            <h3>業務代理人</h3>
+            <p>根據客戶需求，整理規格、歷史成交、交期條件與毛利門檻，先產出報價建議，再交由人員核准。</p>
+          </article>
+          <article class="mini-card span-4">
+            <h3>採購代理人</h3>
+            <p>持續追蹤供應商報價、交期與庫存，主動提醒異常波動，協助採購做替代料件與下單節奏判斷。</p>
+          </article>
+          <article class="mini-card span-4">
+            <h3>生產代理人</h3>
+            <p>整合訂單、物料、設備與排程資訊，協助工單排序、異常追蹤與交期風險預警。</p>
+          </article>
+          <article class="mini-card span-6">
+            <h3>知識承接代理人</h3>
+            <p>把老師傅經驗、客訴應對邏輯、品管判斷準則轉成可搜尋、可教學、可重用的組織知識，降低經驗流失風險。</p>
+          </article>
+          <article class="mini-card span-6">
+            <h3>中小企業的「小而強」模式</h3>
+            <p>小團隊不需要一次養很大的人力編制，也能用多個代理人補上市場蒐集、客戶追蹤、庫存監控與內部協作缺口。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>轉型路徑：從 AI 建議走向 AI 執行</h2>
+          </div>
+          <div class="sub">作者主張不要一開始就追求全面自動化，而是依風險與成熟度逐步放權。這個節奏對台灣企業特別重要。</div>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-card">
+            <h3>階段 1｜鎖定高價值流程</h3>
+            <p>先選可衡量、痛點清楚、資料相對完整的流程，不要一開始就碰跨部門責任模糊的大工程。</p>
+          </article>
+          <article class="timeline-card">
+            <h3>階段 2｜任務標準化與知識數位化</h3>
+            <p>把老師傅腦中的規則、例外判斷、表單欄位與操作 SOP 明文化，不然 AI 只會學到片段資料。</p>
+          </article>
+          <article class="timeline-card">
+            <h3>階段 3｜系統整合與權限設計</h3>
+            <p>接上 ERP、CRM、MES、文件系統等資料源，並清楚界定 AI 可以看什麼、做到哪裡、誰要覆核。</p>
+          </article>
+          <article class="timeline-card">
+            <h3>階段 4｜AI 建議，人員決策</h3>
+            <p>先讓 AI 產出建議方案、風險提醒與執行草案，由人做最終判斷與承責。</p>
+          </article>
+          <article class="timeline-card">
+            <h3>階段 5｜AI 執行，人員監督</h3>
+            <p>流程成熟後，再逐步授權給 AI 執行標準化任務，人員轉向監督、例外處理與持續優化。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="barriers">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>真正障礙：不是技術，而是三種管理缺口</h2>
+          </div>
+          <div class="sub">如果要把這篇文章轉成企業內部簡報，這一段最適合當主管討論題。</div>
+        </div>
+
+        <div class="card-grid">
+          <article class="mini-card span-4">
+            <h3>觀念缺口</h3>
+            <p>把 AI 當 IT 專案或外包專案，而不是經營與流程變革，最後會只剩工具試用，沒有營運成果。</p>
+          </article>
+          <article class="mini-card span-4">
+            <h3>資料缺口</h3>
+            <p>財務、採購、庫存、客戶、生產資料分散、定義不一、品質不穩，AI 只能做片段摘要，無法真正決策支援。</p>
+          </article>
+          <article class="mini-card span-4">
+            <h3>人才缺口</h3>
+            <p>企業不一定最缺 AI 工程師，反而更缺懂流程、懂產業、懂數據、又能和技術團隊對話的 AI 流程創新者。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="actions">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>給經營者的實踐清單</h2>
+          </div>
+          <div class="sub">如果你是老闆、總經理、廠長或顧問，這篇文章最有用的地方，就是能直接變成啟動問題清單。</div>
+        </div>
+
+        <div class="qa-grid">
+          <article class="qa-card span-6">
+            <h3>先問 4 個戰略問題</h3>
+            <ul>
+              <li>我們最希望 AI 接手的任務是什麼？</li>
+              <li>這個任務需要哪些可信資料與知識？</li>
+              <li>哪些步驟可以自動執行？哪些必須人工核准？</li>
+              <li>這件事若成功，該用什麼 KPI 衡量？</li>
+            </ul>
+          </article>
+          <article class="qa-card span-6">
+            <h3>建立最小可行治理</h3>
+            <ul>
+              <li>定義 AI 可用資料範圍與權限層級</li>
+              <li>設定人工覆核點與例外處理流程</li>
+              <li>記錄 AI 建議、採納與結果，以便持續優化</li>
+              <li>把責任邊界寫清楚，不讓 AI 成為灰色地帶</li>
+            </ul>
+          </article>
+          <article class="qa-card span-12">
+            <h3>員工溝通的關鍵一句</h3>
+            <p>真正應該被取代的，是等待、重工與低價值勞動；不是人的尊嚴、專業與成長空間。這句話很適合變成內部推動 AI 的核心溝通語。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reflection">
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="accent-line"></div>
+            <h2>延伸觀點：這篇文章對台灣企業的提醒</h2>
+          </div>
+          <div class="sub">從顧問與經營實務角度看，這篇內容的價值在於：它把 AI 話題從「技術追新」拉回「企業能力設計」。</div>
+        </div>
+
+        <div class="closing-grid">
+          <article class="footer-card span-4">
+            <h3>1. 別急著追全自動</h3>
+            <p>很多企業的資料與流程成熟度還沒到全面自治的程度，先做可驗證、可回滾的流程比較務實。</p>
+          </article>
+          <article class="footer-card span-4">
+            <h3>2. 最值錢的是 know-how 外顯化</h3>
+            <p>只要把老師傅、業務與主管的判斷邏輯抽出來，你就不是只在導入工具，而是在建立可複製的營運能力。</p>
+          </article>
+          <article class="footer-card span-4">
+            <h3>3. 小企業反而可能更靈活</h3>
+            <p>當流程短、溝通層級少、決策快，小型團隊反而比較容易在 Agentic AI 時代做出高機動性的組織優勢。</p>
+          </article>
+        </div>
+
+        <p class="footer-note">本頁依據經濟日報〈代理性 AI 重塑企業競爭力〉內容重組整理，目的是提升教學性、可讀性與內部分享效率，而非逐段轉載原文。</p>
+      </div>
+    </section>
+  </main>
+
+  <a class="to-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">回到頂部 ↑</a>
+</body>
+</html>
